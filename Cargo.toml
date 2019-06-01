@@ -5,4 +5,4 @@ authors = ["Jeron Aldaron Lau <jeronaldaron@gmail.com>", "Douglas Lau <doug.p.la
 edition = "2018"
 
 [dependencies]
-roxmltree = "0.6"
+quick-xml = "0.14.0"

@@ -1,4 +1,4 @@
-use roxmltree;
+use quick_xml;
 
 /// Page margins (Unit: 0.0001 millimeters).
 #[derive(Debug)]
@@ -25,18 +25,31 @@ pub struct ScoreInfo {
 #[derive(Debug)]
 pub struct Score {
     info: ScoreInfo,
-    partlist: ,
-    parts: ,
+//    partlist: ,
+//    parts: ,
 }
 
 impl From<String> for Score {
     fn from(string: String) -> Score {
-        match roxmltree::Document::parse(&string) {
-            Ok(doc) => print!("{:?}", doc),
-            Err(e) => println!("Error: {}.", e),
-        }
+        let mut reader = quick_xml::Reader::from_str(&string);
+        reader.trim_text(true);
 
-        Score { }
+        Score { 
+            info: ScoreInfo {
+                work_title: String::new(),
+                composer: String::new(),
+                arranger: String::new(),
+                lyricist: String::new(),
+                margins: Margins {
+                    left_margin: 0,
+                    right_margin: 0,
+                    top_margin: 0,
+                    bottom_margin: 0,
+                },
+                word_font: String::new(),
+                lyric_font: String::new(),
+            }
+        }
     }
 }
 
